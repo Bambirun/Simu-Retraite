@@ -8,42 +8,45 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            background-color: #f4f4f9;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
         }
         .container {
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
             background: white;
+            padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         label {
             display: block;
             margin: 10px 0 5px;
         }
-        input, select {
-            width: 100%;
+        select, button {
             padding: 8px;
             margin-bottom: 10px;
+            width: 100%;
+            max-width: 200px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
         button {
-            background-color: #28a745;
+            background-color: #4CAF50;
             color: white;
-            padding: 10px 15px;
             border: none;
-            border-radius: 4px;
             cursor: pointer;
         }
         button:hover {
-            background-color: #218838;
+            background-color: #45a049;
         }
         table {
-            margin-top: 20px;
+            width: 80%;
+            margin: 20px auto;
             border-collapse: collapse;
-            width: auto;
         }
         th, td {
             border: 1px solid #ddd;
@@ -52,24 +55,6 @@
         }
         th {
             background-color: #f2f2f2;
-        }
-        th:nth-child(1), td:nth-child(1) { /* Âge au 1er août */
-            width: 60px;
-        }
-        th:nth-child(2), td:nth-child(2) { /* Année */
-            width: 80px;
-        }
-        th:nth-child(3), td:nth-child(3) { /* ATC */
-            width: 80px;
-        }
-        th:nth-child(4), td:nth-child(4) { /* Snbi */
-            width: 80px;
-        }
-        th:nth-child(5), td:nth-child(5) { /* Pension */
-            width: 90px;
-        }
-        th:nth-child(6), td:nth-child(6) { /* Total */
-            width: 90px;
         }
         @media print {
             button {
@@ -80,87 +65,161 @@
 </head>
 <body>
     <div class="container">
-        <h2>Simulateur de Retraite</h2>
-        <label for="anneeDepart">Année de départ en retraite :</label>
-        <select id="anneeDepart">
-            <option value="2029">2029</option>
-            <option value="2030">2030</option>
-            <option value="2031">2031</option>
-            <option value="2032">2032</option>
-            <option value="2033">2033</option>
+        <h1>Simulateur de Retraite</h1>
+        <label for="dateDepart">Date de départ à la retraite :</label>
+        <select id="dateDepart">
+            <option value="2029-1">Janvier 2029</option>
+            <option value="2029-2">Février 2029</option>
+            <option value="2029-3">Mars 2029</option>
+            <option value="2029-4">Avril 2029</option>
+            <option value="2029-5">Mai 2029</option>
+            <option value="2029-6">Juin 2029</option>
+            <option value="2029-7">Juillet 2029</option>
+            <option value="2029-8">Août 2029</option>
+            <option value="2029-9">Septembre 2029</option>
+            <option value="2029-10">Octobre 2029</option>
+            <option value="2029-11">Novembre 2029</option>
+            <option value="2029-12">Décembre 2029</option>
+            <option value="2030-1">Janvier 2030</option>
+            <option value="2030-2">Février 2030</option>
+            <option value="2030-3">Mars 2030</option>
+            <option value="2030-4">Avril 2030</option>
+            <option value="2030-5">Mai 2030</option>
+            <option value="2030-6">Juin 2030</option>
+            <option value="2030-7">Juillet 2030</option>
+            <option value="2030-8">Août 2030</option>
+            <option value="2030-9">Septembre 2030</option>
+            <option value="2030-10">Octobre 2030</option>
+            <option value="2030-11">Novembre 2030</option>
+            <option value="2030-12">Décembre 2030</option>
+            <option value="2031-1">Janvier 2031</option>
+            <option value="2031-2">Février 2031</option>
+            <option value="2031-3">Mars 2031</option>
+            <option value="2031-4">Avril 2031</option>
+            <option value="2031-5">Mai 2031</option>
+            <option value="2031-6">Juin 2031</option>
+            <option value="2031-7">Juillet 2031</option>
+            <option value="2031-8">Août 2031</option>
+            <option value="2031-9">Septembre 2031</option>
+            <option value="2031-10">Octobre 2031</option>
+            <option value="2031-11">Novembre 2031</option>
+            <option value="2031-12">Décembre 2031</option>
+            <option value="2032-1">Janvier 2032</option>
+            <option value="2032-2">Février 2032</option>
+            <option value="2032-3">Mars 2032</option>
+            <option value="2032-4">Avril 2032</option>
+            <option value="2032-5">Mai 2032</option>
+            <option value="2032-6">Juin 2032</option>
+            <option value="2032-7">Juillet 2032</option>
+            <option value="2032-8">Août 2032</option>
+            <option value="2032-9">Septembre 2032</option>
+            <option value="2032-10">Octobre 2032</option>
+            <option value="2032-11">Novembre 2032</option>
+            <option value="2032-12">Décembre 2032</option>
+            <option value="2033-1">Janvier 2033</option>
+            <option value="2033-2">Février 2033</option>
+            <option value="2033-3">Mars 2033</option>
+            <option value="2033-4">Avril 2033</option>
+            <option value="2033-5">Mai 2033</option>
+            <option value="2033-6">Juin 2033</option>
+            <option value="2033-7">Juillet 2033</option>
+            <option value="2033-8">Août 2033</option>
+            <option value="2033-9">Septembre 2033</option>
+            <option value="2033-10">Octobre 2033</option>
+            <option value="2033-11">Novembre 2033</option>
+            <option value="2033-12">Décembre 2033</option>
+            <option value="2034-1">Janvier 2034</option>
+            <option value="2034-2">Février 2034</option>
+            <option value="2034-3">Mars 2034</option>
+            <option value="2034-4">Avril 2034</option>
+            <option value="2034-5">Mai 2034</option>
+            <option value="2034-6">Juin 2034</option>
+            <option value="2034-7">Juillet 2034</option>
+            <option value="2034-8">Août 2034</option>
+            <option value="2034-9">Septembre 2034</option>
+            <option value="2034-10">Octobre 2034</option>
+            <option value="2034-11">Novembre 2034</option>
+            <option value="2034-12">Décembre 2034</option>
+            <option value="2035-1">Janvier 2035</option>
+            <option value="2035-2">Février 2035</option>
         </select>
-        <label for="pensionBase">Pension de base mensuelle (€) :</label>
-        <input type="number" id="pensionBase" placeholder="Entrez votre pension de base">
         <button onclick="calculerRetraite()">Calculer</button>
-        <table id="resultats">
+        <table id="resultatTable">
             <thead>
                 <tr>
-                    <th>Âge au 1er août</th>
+                    <th>Âge (1er août)</th>
                     <th>Année</th>
                     <th>ATC (€)</th>
                     <th>Snbi (€)</th>
-                    <th>Pension (€)</th>
                     <th>Total (€)</th>
                 </tr>
             </thead>
-            <tbody id="tableauResultats"></tbody>
+            <tbody id="tableBody"></tbody>
         </table>
-        <button onclick="imprimer()">Imprimer</button>
     </div>
 
     <script>
         function calculerRetraite() {
-            const anneeDepart = parseInt(document.getElementById('anneeDepart').value);
-            const pensionBase = parseFloat(document.getElementById('pensionBase').value) || 0;
-            const tableauResultats = document.getElementById('tableauResultats');
-            tableauResultats.innerHTML = '';
-
+            const dateDepart = document.getElementById('dateDepart').value.split('-');
+            const anneeDepart = parseInt(dateDepart[0]);
+            const moisDepart = parseInt(dateDepart[1]);
+            const dateNaissance = new Date(1976, 1, 6); // 6 février 1976
             const snbiParAnnee = {
                 2029: 84.95,
-                2030: 91.25,
-                2031: 94.60,
-                2032: 99.34,
-                2033: 103.83
+                2030: 88.35,
+                2031: 92.77,
+                2032: 97.41,
+                2033: 103.83,
+                2034: 103.83,
+                2035: 103.83
             };
-            const snbi = snbiParAnnee[anneeDepart] || 0;
-            const anneeNaissance = 1976;
+            const snbiBase = snbiParAnnee[anneeDepart];
+            const decote = 0.051; // 5,1 %
+            const snbi = snbiBase * (1 - decote); // Appliquer la décote
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = '';
 
-            for (let i = 0; i < 40; i++) {
+            // Vérifier si l'âge à la date de retraite dépasse 59 ans
+            const dateRetraite = new Date(anneeDepart, moisDepart - 1, 1);
+            const ageRetraite = dateRetraite.getFullYear() - dateNaissance.getFullYear();
+            if (ageRetraite > 59 || (ageRetraite === 59 && dateRetraite.getMonth() > dateNaissance.getMonth())) {
+                alert("La date de retraite dépasse l'âge maximum de 59 ans.");
+                return;
+            }
+
+            // Afficher jusqu'à la 14e année
+            for (let i = 0; i < 14; i++) {
                 const annee = anneeDepart + i;
-                // Âge au 1er août : comme l'anniversaire est le 6 février, on soustrait 1 si avant août
-                const age = (annee - anneeNaissance) - (new Date(annee, 7, 1) < new Date(annee, 1, 6)) ? (annee - anneeNaissance - 1) : (annee - anneeNaissance);
-                let atc = 0;
-                if (i < 2) atc = 2964;
-                else if (i < 8) atc = 2331;
-                else if (i < 13) atc = 1264;
+                let atcBase = 0;
+                if (i < 2) {
+                    atcBase = 2964;
+                } else if (i < 8) {
+                    atcBase = 2331;
+                } else if (i < 13) {
+                    atcBase = 1264;
+                }
+                const atc = atcBase * (1 - decote); // Appliquer la décote
+                const total = atc + snbi;
 
-                const total = (pensionBase + snbi + atc / 12).toFixed(2);
+                // Calculer l'âge au 1er août de l'année
+                const dateAout = new Date(annee, 7, 1); // 1er août
+                let age = dateAout.getFullYear() - dateNaissance.getFullYear();
+                if (dateAout.getMonth() < dateNaissance.getMonth() || 
+                    (dateAout.getMonth() === dateNaissance.getMonth() && dateAout.getDate() < dateNaissance.getDate())) {
+                    age--;
+                }
+
                 const row = `
                     <tr>
                         <td>${age}</td>
                         <td>${annee}</td>
-                        <td>${(atc / 12).toFixed(2)}</td>
+                        <td>${atc.toFixed(2)}</td>
                         <td>${snbi.toFixed(2)}</td>
-                        <td>${pensionBase.toFixed(2)}</td>
-                        <td>${total}</td>
+                        <td>${total.toFixed(2)}</td>
                     </tr>
                 `;
-                tableauResultats.innerHTML += row;
+                tableBody.innerHTML += row;
             }
-
-            if (pensionBase || snbi) {
-                tableauResultats.innerHTML += `
-                    <tr>
-                        <td colspan="6" style="text-align: left;">
-                            Note : Après ${anneeDepart + 13}, le montant total reste constant (ATC = 0 €).
-                        </td>
-                    </tr>
-                `;
-            }
-        }
-
-        function imprimer() {
-            window.print();
         }
     </script>
 </body>
