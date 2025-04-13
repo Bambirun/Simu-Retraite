@@ -1,91 +1,169 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <title>Simulateur de Retraite Spécial Bambi</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulateur de Retraite</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        h2 { color: #333; }
-        label { font-weight: bold; }
-        input[type="date"] { padding: 5px; margin: 10px 0; }
-        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 10px; text-align: right; }
-        th { background-color: #f2f2f2; }
-        .total { font-weight: bold; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: auto; /* Tableau ne prend pas toute la largeur */
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        /* Largeurs spécifiques pour chaque colonne */
+        th:nth-child(1), td:nth-child(1) { /* Âge */
+            width: 60px;
+        }
+        th:nth-child(2), td:nth-child(2) { /* Année */
+            width: 80px;
+        }
+        th:nth-child(3), td:nth-child(3) { /* ATC */
+            width: 80px;
+        }
+        th:nth-child(4), td:nth-child(4) { /* Snbi */
+            width: 80px;
+        }
+        th:nth-child(5), td:nth-child(5) { /* Pension */
+            width: 90px;
+        }
+        th:nth-child(6), td:nth-child(6) { /* Total */
+            width: 90px;
+        }
+        @media print {
+            button {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
-    <h2>Simulateur de Retraite Spécial Bambi</h2>
-    <label for="depart">Date de départ :</label>
-    <input type="date" id="depart" onchange="calculerPension()">
-    <div id="resultat"></div>
+    <div class="container">
+        <h2>Simulateur de Retraite</h2>
+        <label for="anneeNaissance">Année de naissance :</label>
+        <input type="number" id="anneeNaissance" placeholder="Entrez votre année de naissance">
+        <label for="anneeDepart">Année de départ en retraite :</label>
+        <select id="anneeDepart">
+            <option value="2029">2029</option>
+            <option value="2030">2030</option>
+            <option value="2031">2031</option>
+            <option value="2032">2032</option>
+            <option value="2033">2033</option>
+        </select>
+        <label for="pensionBase">Pension de base mensuelle (€) :</label>
+        <input type="number" id="pensionBase" placeholder="Entrez votre pension de base">
+        <button onclick="calculerRetraite()">Calculer</button>
+        <table id="resultats">
+            <thead>
+                <tr>
+                    <th>Âge</th>
+                    <th>Année</th>
+                    <th>ATC (€)</th>
+                    <th>Snbi (€)</th>
+                    <th>Pension (€)</th>
+                    <th>Total (€)</th>
+                </tr>
+            </thead>
+            <tbody id="tableauResultats"></tbody>
+        </table>
+        <button onclick="imprimer()">Imprimer</button>
+    </div>
 
     <script>
-        // Données des échelons
-        const echelons = [
-            { date: new Date('2029-08-01'), echelon: 'HEA1', pension: 3304.41 },
-            { date: new Date('2030-08-01'), echelon: 'HEA2', pension: 3433.64 },
-            { date: new Date('2031-08-01'), echelon: 'HEA3/HEB1', pension: 3607.17 },
-            { date: new Date('2032-08-01'), echelon: 'HEB2', pension: 3758.48 },
-            { date: new Date('2033-08-01'), echelon: 'HEB3', pension: 3957.91 }
-        ];
+        function calculerRetraite() {
+            const anneeNaissance = parseInt(document.getElementById('anneeNaissance').value) || 0;
+            const anneeDepart = parseInt(document.getElementById('anneeDepart').value);
+            const pensionBase = parseFloat(document.getElementById('pensionBase').value) || 0;
+            const tableauResultats = document.getElementById('tableauResultats');
+            tableauResultats.innerHTML = '';
 
-        // Snbi selon l'année de départ
-        const snbiParAnneeDepart = {
-            2029: 84.95,
-            2030: 89.6,
-            2031: 94.39,
-            2032: 99.11,
-            2033: 103.83
-        };
+            const snbiParAnnee = {
+                2029: 84.95,
+                2030: 91.25,
+                2031: 94.60,
+                2032: 99.34,
+                2033: 103.83
+            };
+            const snbi = snbiParAnnee[anneeDepart] || 0;
 
-        // ATC dégressif
-        const atcParAnnee = [
-            2964, 2964, // Années 1-2
-            2331, 2331, 2331, 2331, 2331, 2331, // Années 3-8
-            1264, 1264, 1264, 1264, 1264 // Années 9-13
-        ];
+            for (let i = 0; i < 40; i++) {
+                const annee = anneeDepart + i;
+                const age = anneeNaissance ? annee - anneeNaissance : '-';
+                let atc = 0;
+                if (i < 2) atc = 2964;
+                else if (i < 8) atc = 2331;
+                else if (i < 13) atc = 1264;
 
-        function calculerPension() {
-            let dateDepartInput = document.getElementById('depart').value;
-            if (!dateDepartInput) return;
-
-            let dateDepart = new Date(dateDepartInput);
-            let anneeDepart = dateDepart.getFullYear();
-            // Date de naissance exacte
-            let dateNaissance = new Date('1976-02-06');
-            let age = (dateDepart - dateNaissance) / (1000 * 60 * 60 * 24 * 365.25);
-
-            // Trouver la pension de base
-            let pensionBase = 3304.41; // Par défaut HEA1
-            for (let e of echelons) {
-                if (dateDepart >= e.date) pensionBase = e.pension;
+                const total = (pensionBase + snbi + atc / 12).toFixed(2);
+                const row = `
+                    <tr>
+                        <td>${age}</td>
+                        <td>${annee}</td>
+                        <td>${(atc / 12).toFixed(2)}</td>
+                        <td>${snbi.toFixed(2)}</td>
+                        <td>${pensionBase.toFixed(2)}</td>
+                        <td>${total}</td>
+                    </tr>
+                `;
+                tableauResultats.innerHTML += row;
             }
-            // Décote si départ avant avril 2030
-            if (dateDepart < new Date('2030-04-01')) pensionBase *= 0.949;
 
-            // Déterminer le Snbi selon l'année de départ
-            let snbiMontant = snbiParAnneeDepart[anneeDepart] || 0;
-
-            // Générer tableau pour 20 ans
-            let tableau = '<table>';
-            tableau += '<tr><th>Année</th><th>Pension Base (€)</th><th>ATC (€)</th><th>RAFP (€)</th><th>Snbi (€)</th><th>Total (€)</th></tr>';
-
-            for (let i = 0; i <= 20; i++) {
-                let annee = dateDepart.getFullYear() + i;
-                let ageAnnee = age + i;
-
-                // ATC : 0 après 13 ans
-                let atc = i < atcParAnnee.length ? atcParAnnee[i] : 0;
-                // RAFP : à partir de 62 ans (6 février 2038)
-                let rafp = ageAnnee >= 62 ? 63.92 : 0;
-                // Snbi : versé pendant toute la retraite, selon l'année de départ
-                let snbi = snbiMontant;
-                let total = pensionBase + atc + rafp + snbi;
-
-                tableau += `<tr><td>${annee}</td><td>${pensionBase.toFixed(2)}</td><td>${atc.toFixed(2)}</td><td>${rafp.toFixed(2)}</td><td>${snbi.toFixed(2)}</td><td class="total">${total.toFixed(2)}</td></tr>`;
+            // Note pour l'utilisateur
+            if (pensionBase || snbi) {
+                tableauResultats.innerHTML += `
+                    <tr>
+                        <td colspan="6" style="text-align: left;">
+                            Note : Après ${anneeDepart + 13}, le montant total reste constant (ATC = 0 €).
+                        </td>
+                    </tr>
+                `;
             }
-            tableau += '</table>';
-            document.getElementById('resultat').innerHTML = tableau;
+        }
+
+        function imprimer() {
+            window.print();
         }
     </script>
 </body>
