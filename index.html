@@ -43,7 +43,7 @@
         table {
             margin-top: 20px;
             border-collapse: collapse;
-            width: auto; /* Tableau ne prend pas toute la largeur */
+            width: auto;
         }
         th, td {
             border: 1px solid #ddd;
@@ -53,8 +53,7 @@
         th {
             background-color: #f2f2f2;
         }
-        /* Largeurs spécifiques pour chaque colonne */
-        th:nth-child(1), td:nth-child(1) { /* Âge */
+        th:nth-child(1), td:nth-child(1) { /* Âge au 1er août */
             width: 60px;
         }
         th:nth-child(2), td:nth-child(2) { /* Année */
@@ -82,8 +81,6 @@
 <body>
     <div class="container">
         <h2>Simulateur de Retraite</h2>
-        <label for="anneeNaissance">Année de naissance :</label>
-        <input type="number" id="anneeNaissance" placeholder="Entrez votre année de naissance">
         <label for="anneeDepart">Année de départ en retraite :</label>
         <select id="anneeDepart">
             <option value="2029">2029</option>
@@ -98,7 +95,7 @@
         <table id="resultats">
             <thead>
                 <tr>
-                    <th>Âge</th>
+                    <th>Âge au 1er août</th>
                     <th>Année</th>
                     <th>ATC (€)</th>
                     <th>Snbi (€)</th>
@@ -113,7 +110,6 @@
 
     <script>
         function calculerRetraite() {
-            const anneeNaissance = parseInt(document.getElementById('anneeNaissance').value) || 0;
             const anneeDepart = parseInt(document.getElementById('anneeDepart').value);
             const pensionBase = parseFloat(document.getElementById('pensionBase').value) || 0;
             const tableauResultats = document.getElementById('tableauResultats');
@@ -127,10 +123,12 @@
                 2033: 103.83
             };
             const snbi = snbiParAnnee[anneeDepart] || 0;
+            const anneeNaissance = 1976;
 
             for (let i = 0; i < 40; i++) {
                 const annee = anneeDepart + i;
-                const age = anneeNaissance ? annee - anneeNaissance : '-';
+                // Âge au 1er août : comme l'anniversaire est le 6 février, on soustrait 1 si avant août
+                const age = (annee - anneeNaissance) - (new Date(annee, 7, 1) < new Date(annee, 1, 6)) ? (annee - anneeNaissance - 1) : (annee - anneeNaissance);
                 let atc = 0;
                 if (i < 2) atc = 2964;
                 else if (i < 8) atc = 2331;
@@ -150,7 +148,6 @@
                 tableauResultats.innerHTML += row;
             }
 
-            // Note pour l'utilisateur
             if (pensionBase || snbi) {
                 tableauResultats.innerHTML += `
                     <tr>
