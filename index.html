@@ -78,8 +78,8 @@
                 let atc = i < atcParAnnee.length ? atcParAnnee[i] : 0;
                 // RAFP : à partir de 62 ans (6 février 2038)
                 let rafp = ageAnnee >= 62 ? 63.92 : 0;
-                // Snbi : uniquement de 2029 à 2033, selon l'année de départ
-                let snbi = (annee >= 2029 && annee <= 2033) ? snbiMontant : 0;
+                // Snbi : versé pendant toute la retraite, selon l'année de départ
+                let snbi = snbiMontant;
                 let total = pensionBase + atc + rafp + snbi;
 
                 tableau += `<tr><td>${annee}</td><td>${pensionBase.toFixed(2)}</td><td>${atc.toFixed(2)}</td><td>${rafp.toFixed(2)}</td><td>${snbi.toFixed(2)}</td><td class="total">${total.toFixed(2)}</td></tr>`;
