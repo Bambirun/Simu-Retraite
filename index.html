@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulateur de Retraite Bambi</title>
+    <title>Simulateur de Retraite</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -90,7 +90,6 @@
                 <option value="12">Décembre</option>
             </select>
             <select id="anneeDepart">
-                <option value="2029">2029</option>
                 <option value="2030">2030</option>
                 <option value="2031">2031</option>
                 <option value="2032">2032</option>
@@ -125,7 +124,6 @@
 
             // Snbi selon l’année de départ
             const snbiParAnnee = {
-                2029: 84.95,
                 2030: 88.36,
                 2031: 94.39,
                 2032: 99.11,
@@ -133,54 +131,53 @@
                 2034: 103.83,
                 2035: 103.83
             };
-            const snbiBase = snbiParAnnee[anneeDepart];
+            const snbi = snbiParAnnee[anneeDepart];
 
             // Pension de base selon l’année de départ (avec 6 mois après changement d’échelon)
             const pensionBaseParAnnee = {
-                2029: 3304.41, // HEA 1
-                2030: (moisDepart <= 7) ? 3304.41 : 3433.64, // HEA 1 avant 08/2030, HEA 2 après
+                2030: (moisDepart <= 7) ? 3304.23 : 3433.64, // HEA 1 avant 08/2030, HEA 2 après
                 2031: (moisDepart <= 7) ? 3433.64 : 3607.17, // HEA 2 avant 08/2031, HEA 3/HEB 1 après
-                2032: 3607.17, // HEB 1
-                2033: 3607.17, // HEB 1
-                2034: 3607.17, // HEB 1
-                2035: 3607.17  // HEB 1
+                2032: 3758.48, // HEB 2
+                2033: 3957.91, // HEB 3
+                2034: 3957.91, // HEB 3
+                2035: 3957.91  // HEB 3
             };
             const pensionBase = pensionBaseParAnnee[anneeDepart];
 
-            const decote = 0.051; // 5,1 %
-            const snbi = snbiBase * (1 - decote);
-            const pensionBaseDecote = pensionBase * (1 - decote);
             const rafpMensuel = 63.92; // 767 €/an ÷ 12
 
             const tableBody = document.getElementById('tableBody');
             tableBody.innerHTML = '';
 
-            // Vérifier si l’âge est entre 53,5 ans (juillet 2029) et 59 ans (février 2035)
+            // Vérifier si la date est entre avril 2030 et février 2035
             const dateRetraite = new Date(anneeDepart, moisDepart - 1, 1);
+            if (anneeDepart === 2030 && moisDepart < 4) {
+                alert("La date de retraite doit être au plus tôt en avril 2030.");
+                return;
+            }
             const ageRetraite = dateRetraite.getFullYear() - dateNaissance.getFullYear() + (dateRetraite.getMonth() - dateNaissance.getMonth()) / 12;
-            if (ageRetraite < 53.5 || (ageRetraite > 59 || (ageRetraite > 58 && dateRetraite.getMonth() > dateNaissance.getMonth()))) {
-                alert("La date de retraite doit être entre 53 ans et demi (juillet 2029) et 59 ans (février 2035).");
+            if (ageRetraite > 59 || (ageRetraite > 58 && dateRetraite.getMonth() > dateNaissance.getMonth())) {
+                alert("La date de retraite doit être au plus tard en février 2035 (59 ans).");
                 return;
             }
 
             // Afficher jusqu’à la 14e année
             for (let i = 0; i < 14; i++) {
                 const annee = anneeDepart + i;
-                let atcBase = 0;
+                let atc = 0;
                 if (i < 2) {
-                    atcBase = 2964;
+                    atc = 2964;
                 } else if (i < 8) {
-                    atcBase = 2331;
+                    atc = 2331;
                 } else if (i < 13) {
-                    atcBase = 1264;
+                    atc = 1264;
                 }
-                const atc = atcBase * (1 - decote); // Appliquer la décote
 
                 // RAFP à partir de 62 ans
                 const dateAnnee = new Date(annee, 0, 1);
                 const rafp = (dateAnnee >= dateDebutRAFP) ? rafpMensuel : 0;
 
-                const total = pensionBaseDecote + atc + snbi + rafp;
+                const total = pensionBase + atc + snbi + rafp;
 
                 // Calculer l’âge au 1er août de l’année
                 const dateAout = new Date(annee, 7, 1); // 1er août
@@ -194,7 +191,7 @@
                     <tr>
                         <td>${age}</td>
                         <td>${annee}</td>
-                        <td>${pensionBaseDecote.toFixed(2)}</td>
+                        <td>${pensionBase.toFixed(2)}</td>
                         <td>${atc.toFixed(2)}</td>
                         <td>${snbi.toFixed(2)}</td>
                         <td>${rafp.toFixed(2)}</td>
