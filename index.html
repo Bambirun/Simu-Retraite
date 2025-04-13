@@ -51,8 +51,8 @@
 
             let dateDepart = new Date(dateDepartInput);
             let anneeDepart = dateDepart.getFullYear();
-            // Estimation date de naissance (1976 pour 53,5 ans en 2030)
-            let dateNaissance = new Date('1976-04-01');
+            // Date de naissance exacte
+            let dateNaissance = new Date('1976-02-06');
             let age = (dateDepart - dateNaissance) / (1000 * 60 * 60 * 24 * 365.25);
 
             // Trouver la pension de base
@@ -76,7 +76,7 @@
 
                 // ATC : 0 après 13 ans
                 let atc = i < atcParAnnee.length ? atcParAnnee[i] : 0;
-                // RAFP : à partir de 62 ans
+                // RAFP : à partir de 62 ans (6 février 2038)
                 let rafp = ageAnnee >= 62 ? 63.92 : 0;
                 // Snbi : uniquement de 2029 à 2033, selon l'année de départ
                 let snbi = (annee >= 2029 && annee <= 2033) ? snbiMontant : 0;
