@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulateur de Retraite</title>
+    <title>Simulateur de Retraite Bambi</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -29,12 +29,19 @@
         select, button {
             padding: 8px;
             margin-bottom: 10px;
-            width: 100%;
-            max-width: 200px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
+        .date-container {
+            display: flex;
+            gap: 10px;
+        }
+        select {
+            width: 150px;
+        }
         button {
+            width: 100%;
+            max-width: 200px;
             background-color: #4CAF50;
             color: white;
             border: none;
@@ -65,92 +72,43 @@
 </head>
 <body>
     <div class="container">
-        <h1>Simulateur de Retraite</h1>
-        <label for="dateDepart">Date de départ à la retraite :</label>
-        <select id="dateDepart">
-            <option value="2029-1">Janvier 2029</option>
-            <option value="2029-2">Février 2029</option>
-            <option value="2029-3">Mars 2029</option>
-            <option value="2029-4">Avril 2029</option>
-            <option value="2029-5">Mai 2029</option>
-            <option value="2029-6">Juin 2029</option>
-            <option value="2029-7">Juillet 2029</option>
-            <option value="2029-8">Août 2029</option>
-            <option value="2029-9">Septembre 2029</option>
-            <option value="2029-10">Octobre 2029</option>
-            <option value="2029-11">Novembre 2029</option>
-            <option value="2029-12">Décembre 2029</option>
-            <option value="2030-1">Janvier 2030</option>
-            <option value="2030-2">Février 2030</option>
-            <option value="2030-3">Mars 2030</option>
-            <option value="2030-4">Avril 2030</option>
-            <option value="2030-5">Mai 2030</option>
-            <option value="2030-6">Juin 2030</option>
-            <option value="2030-7">Juillet 2030</option>
-            <option value="2030-8">Août 2030</option>
-            <option value="2030-9">Septembre 2030</option>
-            <option value="2030-10">Octobre 2030</option>
-            <option value="2030-11">Novembre 2030</option>
-            <option value="2030-12">Décembre 2030</option>
-            <option value="2031-1">Janvier 2031</option>
-            <option value="2031-2">Février 2031</option>
-            <option value="2031-3">Mars 2031</option>
-            <option value="2031-4">Avril 2031</option>
-            <option value="2031-5">Mai 2031</option>
-            <option value="2031-6">Juin 2031</option>
-            <option value="2031-7">Juillet 2031</option>
-            <option value="2031-8">Août 2031</option>
-            <option value="2031-9">Septembre 2031</option>
-            <option value="2031-10">Octobre 2031</option>
-            <option value="2031-11">Novembre 2031</option>
-            <option value="2031-12">Décembre 2031</option>
-            <option value="2032-1">Janvier 2032</option>
-            <option value="2032-2">Février 2032</option>
-            <option value="2032-3">Mars 2032</option>
-            <option value="2032-4">Avril 2032</option>
-            <option value="2032-5">Mai 2032</option>
-            <option value="2032-6">Juin 2032</option>
-            <option value="2032-7">Juillet 2032</option>
-            <option value="2032-8">Août 2032</option>
-            <option value="2032-9">Septembre 2032</option>
-            <option value="2032-10">Octobre 2032</option>
-            <option value="2032-11">Novembre 2032</option>
-            <option value="2032-12">Décembre 2032</option>
-            <option value="2033-1">Janvier 2033</option>
-            <option value="2033-2">Février 2033</option>
-            <option value="2033-3">Mars 2033</option>
-            <option value="2033-4">Avril 2033</option>
-            <option value="2033-5">Mai 2033</option>
-            <option value="2033-6">Juin 2033</option>
-            <option value="2033-7">Juillet 2033</option>
-            <option value="2033-8">Août 2033</option>
-            <option value="2033-9">Septembre 2033</option>
-            <option value="2033-10">Octobre 2033</option>
-            <option value="2033-11">Novembre 2033</option>
-            <option value="2033-12">Décembre 2033</option>
-            <option value="2034-1">Janvier 2034</option>
-            <option value="2034-2">Février 2034</option>
-            <option value="2034-3">Mars 2034</option>
-            <option value="2034-4">Avril 2034</option>
-            <option value="2034-5">Mai 2034</option>
-            <option value="2034-6">Juin 2034</option>
-            <option value="2034-7">Juillet 2034</option>
-            <option value="2034-8">Août 2034</option>
-            <option value="2034-9">Septembre 2034</option>
-            <option value="2034-10">Octobre 2034</option>
-            <option value="2034-11">Novembre 2034</option>
-            <option value="2034-12">Décembre 2034</option>
-            <option value="2035-1">Janvier 2035</option>
-            <option value="2035-2">Février 2035</option>
-        </select>
+        <h1>Simulateur de Retraite Bambi</h1>
+        <label for="moisDepart">Date de départ à la retraite :</label>
+        <div class="date-container">
+            <select id="moisDepart">
+                <option value="1">Janvier</option>
+                <option value="2">Février</option>
+                <option value="3">Mars</option>
+                <option value="4">Avril</option>
+                <option value="5">Mai</option>
+                <option value="6">Juin</option>
+                <option value="7">Juillet</option>
+                <option value="8">Août</option>
+                <option value="9">Septembre</option>
+                <option value="10">Octobre</option>
+                <option value="11">Novembre</option>
+                <option value="12">Décembre</option>
+            </select>
+            <select id="anneeDepart">
+                <option value="2029">2029</option>
+                <option value="2030">2030</option>
+                <option value="2031">2031</option>
+                <option value="2032">2032</option>
+                <option value="2033">2033</option>
+                <option value="2034">2034</option>
+                <option value="2035">2035</option>
+            </select>
+        </div>
         <button onclick="calculerRetraite()">Calculer</button>
         <table id="resultatTable">
             <thead>
                 <tr>
                     <th>Âge (1er août)</th>
                     <th>Année</th>
+                    <th>Pension de base (€)</th>
                     <th>ATC (€)</th>
                     <th>Snbi (€)</th>
+                    <th>RAFP (€)</th>
                     <th>Total (€)</th>
                 </tr>
             </thead>
@@ -160,34 +118,52 @@
 
     <script>
         function calculerRetraite() {
-            const dateDepart = document.getElementById('dateDepart').value.split('-');
-            const anneeDepart = parseInt(dateDepart[0]);
-            const moisDepart = parseInt(dateDepart[1]);
+            const moisDepart = parseInt(document.getElementById('moisDepart').value);
+            const anneeDepart = parseInt(document.getElementById('anneeDepart').value);
             const dateNaissance = new Date(1976, 1, 6); // 6 février 1976
+            const dateDebutRAFP = new Date(2038, 1, 6); // 6 février 2038 (62 ans)
+
+            // Snbi selon l’année de départ
             const snbiParAnnee = {
                 2029: 84.95,
-                2030: 88.35,
-                2031: 92.77,
-                2032: 97.41,
+                2030: 88.36,
+                2031: 94.39,
+                2032: 99.11,
                 2033: 103.83,
                 2034: 103.83,
                 2035: 103.83
             };
             const snbiBase = snbiParAnnee[anneeDepart];
+
+            // Pension de base selon l’année de départ (avec 6 mois après changement d’échelon)
+            const pensionBaseParAnnee = {
+                2029: 3304.41, // HEA 1
+                2030: (moisDepart <= 7) ? 3304.41 : 3433.64, // HEA 1 avant 08/2030, HEA 2 après
+                2031: (moisDepart <= 7) ? 3433.64 : 3607.17, // HEA 2 avant 08/2031, HEA 3/HEB 1 après
+                2032: 3607.17, // HEB 1
+                2033: 3607.17, // HEB 1
+                2034: 3607.17, // HEB 1
+                2035: 3607.17  // HEB 1
+            };
+            const pensionBase = pensionBaseParAnnee[anneeDepart];
+
             const decote = 0.051; // 5,1 %
-            const snbi = snbiBase * (1 - decote); // Appliquer la décote
+            const snbi = snbiBase * (1 - decote);
+            const pensionBaseDecote = pensionBase * (1 - decote);
+            const rafpMensuel = 63.92; // 767 €/an ÷ 12
+
             const tableBody = document.getElementById('tableBody');
             tableBody.innerHTML = '';
 
-            // Vérifier si l'âge à la date de retraite dépasse 59 ans
+            // Vérifier si l’âge est entre 53,5 ans (juillet 2029) et 59 ans (février 2035)
             const dateRetraite = new Date(anneeDepart, moisDepart - 1, 1);
-            const ageRetraite = dateRetraite.getFullYear() - dateNaissance.getFullYear();
-            if (ageRetraite > 59 || (ageRetraite === 59 && dateRetraite.getMonth() > dateNaissance.getMonth())) {
-                alert("La date de retraite dépasse l'âge maximum de 59 ans.");
+            const ageRetraite = dateRetraite.getFullYear() - dateNaissance.getFullYear() + (dateRetraite.getMonth() - dateNaissance.getMonth()) / 12;
+            if (ageRetraite < 53.5 || (ageRetraite > 59 || (ageRetraite > 58 && dateRetraite.getMonth() > dateNaissance.getMonth()))) {
+                alert("La date de retraite doit être entre 53 ans et demi (juillet 2029) et 59 ans (février 2035).");
                 return;
             }
 
-            // Afficher jusqu'à la 14e année
+            // Afficher jusqu’à la 14e année
             for (let i = 0; i < 14; i++) {
                 const annee = anneeDepart + i;
                 let atcBase = 0;
@@ -199,9 +175,14 @@
                     atcBase = 1264;
                 }
                 const atc = atcBase * (1 - decote); // Appliquer la décote
-                const total = atc + snbi;
 
-                // Calculer l'âge au 1er août de l'année
+                // RAFP à partir de 62 ans
+                const dateAnnee = new Date(annee, 0, 1);
+                const rafp = (dateAnnee >= dateDebutRAFP) ? rafpMensuel : 0;
+
+                const total = pensionBaseDecote + atc + snbi + rafp;
+
+                // Calculer l’âge au 1er août de l’année
                 const dateAout = new Date(annee, 7, 1); // 1er août
                 let age = dateAout.getFullYear() - dateNaissance.getFullYear();
                 if (dateAout.getMonth() < dateNaissance.getMonth() || 
@@ -213,8 +194,10 @@
                     <tr>
                         <td>${age}</td>
                         <td>${annee}</td>
+                        <td>${pensionBaseDecote.toFixed(2)}</td>
                         <td>${atc.toFixed(2)}</td>
                         <td>${snbi.toFixed(2)}</td>
+                        <td>${rafp.toFixed(2)}</td>
                         <td>${total.toFixed(2)}</td>
                     </tr>
                 `;
